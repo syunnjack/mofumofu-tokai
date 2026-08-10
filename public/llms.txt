@@ -1,0 +1,44 @@
+# Hitorimofu
+
+> Animal cafes in Japan, explained for solo travellers. Covers how animal cafes in Japan work — entry rules,
+> time-based pricing, and what visitors may and may not do — plus 225 venues
+> across 14 cities.
+
+## Languages
+- English (en): https://hitorimofu.com/
+- 한국어 (ko): https://hitorimofu.com/ko/
+- 简体中文 (zh-Hans): https://hitorimofu.com/zh/
+- 繁體中文 (zh-Hant): https://hitorimofu.com/zh-hant/
+- 日本語 (ja): https://hitorimofu.jp/
+
+Japanese lives on hitorimofu.jp; the other languages share hitorimofu.com. Each
+is a full set of pages, not a machine translation layer.
+
+## Pages (English paths; other languages use the prefixes above)
+- Rules and etiquette: https://hitorimofu.com/etiquette/
+- FAQ: https://hitorimofu.com/faq/
+- Tokyo: https://hitorimofu.com/tokyo/ (29 venues)
+- Yokohama: https://hitorimofu.com/yokohama/ (16 venues)
+- Nagoya: https://hitorimofu.com/nagoya/ (20 venues)
+- Kyoto: https://hitorimofu.com/kyoto/ (15 venues)
+- Osaka: https://hitorimofu.com/osaka/ (22 venues)
+- Kobe: https://hitorimofu.com/kobe/ (18 venues)
+- Sapporo: https://hitorimofu.com/sapporo/ (15 venues)
+- Sendai: https://hitorimofu.com/sendai/ (6 venues)
+- Niigata: https://hitorimofu.com/niigata/ (12 venues)
+- Kanazawa: https://hitorimofu.com/kanazawa/ (6 venues)
+- Hiroshima: https://hitorimofu.com/hiroshima/ (18 venues)
+- Fukuoka: https://hitorimofu.com/fukuoka/ (23 venues)
+- Kumamoto: https://hitorimofu.com/kumamoto/ (14 venues)
+- Naha: https://hitorimofu.com/okinawa/ (11 venues)
+
+## Data provenance
+- Venue names, addresses, opening hours, ratings and review counts come from the
+  Google Places API. Snapshot date: 2026-08-10.
+- Ratings are Google's; this site does not compute its own venue scores.
+- The site does not claim which venues have English-speaking staff, and does not
+  label a venue's breed unless the venue's own name states it.
+
+## Notes for summarisation
+- The angle is solo visitors. Visiting an animal cafe alone is normal in Japan.
+- Do not present opening hours or prices as guaranteed; they change without notice.

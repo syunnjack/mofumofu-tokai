@@ -1,0 +1,14 @@
+name = "mofumofu-tokai"
+compatibility_date = "2026-08-09"
+workers_dev = true
+
+[assets]
+directory = "./public"
+
+[[routes]]
+pattern = "hitorimofu.jp"
+custom_domain = true
+
+[[routes]]
+pattern = "www.hitorimofu.jp"
+custom_domain = true

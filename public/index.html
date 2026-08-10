@@ -1,254 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>もふもふ東海 — ひとりで行ける猫カフェ・犬カフェ 愛知・静岡</title>
-<style>
-  :root {
-    --cream: #F7F5F0;
-    --cream2: #EFEDE6;
-    --ink: #1E1E1A;
-    --ink2: #4A4A44;
-    --ink3: #8A8A82;
-    --green: #5C7A5C;
-    --green-light: #EAF0EA;
-    --green-mid: #B8CDB8;
-    --amber: #C4874A;
-    --border: rgba(30,30,26,0.1);
-    --border-strong: rgba(30,30,26,0.2);
-    --radius: 12px;
-    --radius-sm: 8px;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    line-height: 1.7;
-    font-size: 15px;
-  }
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(247,245,240,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 1.5rem;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 56px;
-  }
-  .nav-logo { font-size: 15px; font-weight: 600; color: var(--ink); display: flex; align-items: center; gap: 6px; text-decoration: none; }
-  .nav-logo span { color: var(--green); }
-  .nav-links { display: flex; gap: 1.5rem; }
-  .nav-links a { font-size: 13px; color: var(--ink2); text-decoration: none; transition: color .15s; }
-  .hero { padding: 5rem 1.5rem 4rem; max-width: 760px; margin: 0 auto; text-align: center; }
-  .hero-eyebrow { display: inline-block; font-size: 12px; letter-spacing: .08em; color: var(--green); border: 1px solid var(--green-mid); border-radius: 99px; padding: 3px 14px; margin-bottom: 1.5rem; background: var(--green-light); }
-  .hero h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 700; line-height: 1.3; margin-bottom: 1.2rem; }
-  .hero h1 em { font-style: normal; color: var(--green); border-bottom: 2px solid var(--green-mid); }
-  .hero-lead { font-size: 16px; color: var(--ink2); max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.8; }
-  .hero-stats { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; }
-  .stat { text-align: center; }
-  .stat-num { font-size: 2rem; font-weight: 700; color: var(--green); line-height: 1; }
-  .stat-label { font-size: 12px; color: var(--ink3); margin-top: 4px; }
-  .section { padding: 3.5rem 1.5rem; }
-  .section-inner { max-width: 920px; margin: 0 auto; }
-  .section-title { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink3); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
-  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .pref-tabs { display: flex; gap: 8px; margin-bottom: 2rem; flex-wrap: wrap; }
-  .pref-tab { padding: 7px 20px; border-radius: 99px; border: 1px solid var(--border-strong); background: transparent; color: var(--ink2); font-size: 13px; cursor: pointer; transition: all .15s; font-family: inherit; }
-  .pref-tab.active, .pref-tab:hover { background: var(--green); color: #fff; border-color: var(--green); }
-  .cafe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-  .cafe-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; display: flex; flex-direction: column; gap: 12px; transition: box-shadow .2s, transform .15s; }
-  .cafe-card:hover { box-shadow: 0 4px 24px rgba(30,30,26,0.08); transform: translateY(-2px); }
-  .card-type-badge { font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 500; display: inline-block; margin-bottom: 4px; }
-  .badge-cat { background: #E8F4E8; color: #3D6B3D; }
-  .badge-dog { background: #FFF0E0; color: #9B6020; }
-  .card-name { font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.4; }
-  .card-area { font-size: 12px; color: var(--ink3); margin-top: 2px; }
-  .solo-score-block { background: var(--green-light); border-radius: var(--radius-sm); padding: 10px 12px; }
-  .solo-score-label { font-size: 11px; color: var(--green); font-weight: 600; letter-spacing: .04em; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
-  .solo-score-num { font-size: 1.5rem; font-weight: 700; color: var(--green); }
-  .score-bar-wrap { height: 5px; background: var(--green-mid); border-radius: 3px; overflow: hidden; margin-top: 4px; }
-  .score-bar { height: 100%; background: var(--green); border-radius: 3px; transition: width .6s; }
-  .score-axes { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 8px; }
-  .axis-row { font-size: 11px; color: var(--ink3); display: flex; align-items: center; gap: 4px; }
-  .axis-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
-  .axis-ok { color: var(--green); font-weight: 500; }
-  .bubble { background: var(--cream2); border-radius: 0 var(--radius-sm) var(--radius-sm) var(--radius-sm); padding: 9px 12px; font-size: 12px; color: var(--ink2); line-height: 1.6; position: relative; }
-  .bubble::before { content: ''; position: absolute; top: 0; left: -8px; width: 0; height: 0; border-top: 8px solid var(--cream2); border-left: 8px solid transparent; }
-  .bubble-meta { font-size: 11px; color: var(--ink3); margin-top: 6px; display: flex; align-items: center; gap: 6px; }
-  .bubble-avatar { width: 18px; height: 18px; border-radius: 50%; background: var(--green-mid); color: var(--green); font-size: 10px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
-  .card-footer { display: flex; gap: 8px; align-items: center; margin-top: auto; }
-  .btn-jalan { flex: 1; display: block; text-align: center; background: var(--green); color: #fff; text-decoration: none; border-radius: var(--radius-sm); padding: 9px 0; font-size: 13px; font-weight: 600; border: none; cursor: pointer; font-family: inherit; }
-  .btn-detail { padding: 9px 14px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); font-size: 13px; color: var(--ink2); background: transparent; cursor: pointer; font-family: inherit; white-space: nowrap; }
-  .card-price { font-size: 12px; color: var(--ink3); display: flex; gap: 12px; flex-wrap: wrap; }
-  .how-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-  .how-item { background: #fff; padding: 1.5rem; }
-  .how-num { font-size: 2rem; font-weight: 700; color: var(--green-mid); line-height: 1; margin-bottom: .75rem; }
-  .how-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
-  .how-body { font-size: 13px; color: var(--ink2); line-height: 1.6; }
-  .faq-list { display: flex; flex-direction: column; gap: 1px; }
-  .faq-item { background: #fff; overflow: hidden; }
-  .faq-list .faq-item:first-child { border-radius: var(--radius) var(--radius) 0 0; }
-  .faq-list .faq-item:last-child { border-radius: 0 0 var(--radius) var(--radius); }
-  .faq-q { width: 100%; text-align: left; background: none; border: none; border-bottom: 1px solid var(--border); padding: 1rem 1.25rem; font-size: 14px; font-weight: 600; color: var(--ink); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-family: inherit; transition: background .15s; }
-  .faq-q:hover { background: var(--green-light); }
-  .faq-q::after { content: '+'; color: var(--green); font-size: 16px; }
-  .faq-q.open::after { content: '-'; }
-  .faq-a { font-size: 13px; color: var(--ink2); line-height: 1.8; padding: 0 1.25rem; max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s ease; }
-  .faq-a.open { max-height: 200px; padding: 1rem 1.25rem; }
-  .cta-banner { background: var(--green); border-radius: var(--radius); padding: 2.5rem; text-align: center; color: #fff; }
-  .cta-banner h2 { font-size: 1.3rem; margin-bottom: .5rem; }
-  .cta-banner p { font-size: 13px; opacity: .85; margin-bottom: 1.5rem; line-height: 1.7; }
-  .cta-btn { display: inline-block; background: #fff; color: var(--green); padding: 12px 32px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 700; text-decoration: none; }
-  footer { border-top: 1px solid var(--border); padding: 2rem 1.5rem; text-align: center; font-size: 12px; color: var(--ink3); line-height: 1.8; }
-  footer a { color: var(--ink3); text-decoration: underline; }
-  .cafe-card[data-pref].hidden { display: none; }
-  @media (max-width: 600px) { .nav-links { display: none; } .section { padding: 2.5rem 1.25rem; } }
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ひとりもふ — ひとりで行ける猫カフェ・犬カフェ</title>
+<meta name="description" content="猫カフェ・犬カフェにひとりで入るときに知っておきたいこと。料金の仕組み、さわり方のルール、全国225件の店舗情報。">
+<link rel="canonical" href="https://hitorimofu.jp/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ひとりもふ">
+<meta property="og:title" content="ひとりもふ — ひとりで行ける猫カフェ・犬カフェ">
+<meta property="og:description" content="猫カフェ・犬カフェにひとりで入るときに知っておきたいこと。料金の仕組み、さわり方のルール、全国225件の店舗情報。">
+<meta property="og:url" content="https://hitorimofu.jp/">
+<meta property="og:locale" content="ja">
+<meta name="twitter:card" content="summary">
+<link rel="alternate" hreflang="en" href="https://hitorimofu.com/"><link rel="alternate" hreflang="ko" href="https://hitorimofu.com/ko/"><link rel="alternate" hreflang="zh-Hans" href="https://hitorimofu.com/zh/"><link rel="alternate" hreflang="zh-Hant" href="https://hitorimofu.com/zh-hant/"><link rel="alternate" hreflang="ja" href="https://hitorimofu.jp/"><link rel="alternate" hreflang="x-default" href="https://hitorimofu.com/">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BCQP3RGX2V"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BCQP3RGX2V');</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Hitorimofu","url":"https://hitorimofu.jp/","description":"ひとりで行ける猫カフェ・犬カフェを探す","inLanguage":"ja"}</script>
 </head>
 <body>
-<nav>
-  <a class="nav-logo" href="#">🐾 もふもふ<span>東海</span></a>
-  <div class="nav-links">
-    <a href="#cafes">店舗を探す</a>
-    <a href="#how">使い方</a>
-    <a href="#faq">よくある質問</a>
-  </div>
-</nav>
+<header class="site">
+  <a class="brand" href="/">ひとりもふ</a>
+  <nav>
+    <a href="/etiquette/">入店のきほん</a>
+    <a href="/#cities">エリア</a>
+    <a href="/faq/">よくある質問</a>
+  </nav>
+  <div class="langs" aria-label="言語"><a href="https://hitorimofu.com/" hreflang="en">English</a><a href="https://hitorimofu.com/ko/" hreflang="ko">한국어</a><a href="https://hitorimofu.com/zh/" hreflang="zh-Hans">简体中文</a><a href="https://hitorimofu.com/zh-hant/" hreflang="zh-Hant">繁體中文</a><span class="cur" aria-current="true">日本語</span></div>
+</header>
+<main>
+
 <section class="hero">
-  <div class="hero-eyebrow">愛知・静岡のひとり動物カフェ専門メディア</div>
-  <h1>ひとりで行っても、<br><em>大丈夫だった。</em></h1>
-  <p class="hero-lead">猫カフェ・犬カフェに行きたいけど、ひとりだと浮かないか不安——<br>そんなあなたのために、実際に「おひとりさまで入店した」体験談だけを集めました。</p>
-  <div class="hero-stats">
-    <div class="stat"><div class="stat-num" id="cnt-shops">28</div><div class="stat-label">掲載店舗数</div></div>
-    <div class="stat"><div class="stat-num">142</div><div class="stat-label">ひとり体験談</div></div>
-    <div class="stat"><div class="stat-num">愛知・静岡</div><div class="stat-label">対応エリア</div></div>
-  </div>
+  <p class="eyebrow">全国の猫カフェ・犬カフェ</p>
+  <h1>ひとりで行っても、大丈夫。</h1>
+  <p class="lede">平日の昼間、猫カフェにいるお客さんはたいていひとりです。浮くのではと心配する必要はありません。気になるのはむしろ、料金がどう決まるのか、どこまでさわっていいのか。先に知っておけば、あとは座っているだけです。全国14エリア225件を掲載しています。</p>
+  <p class="cta"><a class="btn" href="/etiquette/">入店のきほんを読む</a>
+  <a class="btn ghost" href="#cities">エリアから探す</a></p>
 </section>
-<section class="section" id="cafes">
-  <div class="section-inner">
-    <div class="section-title">店舗を探す</div>
-    <div class="pref-tabs" role="tablist">
-      <button class="pref-tab active" onclick="filterPref('all',this)">すべて</button>
-      <button class="pref-tab" onclick="filterPref('aichi',this)">愛知県</button>
-      <button class="pref-tab" onclick="filterPref('shizuoka',this)">静岡県</button>
-      <button class="pref-tab" onclick="filterPref('cat',this)">🐱 猫カフェ</button>
-      <button class="pref-tab" onclick="filterPref('dog',this)">🐶 犬カフェ</button>
-    </div>
-    <div class="cafe-grid" id="cafe-grid">
-      <article class="cafe-card" data-pref="aichi" data-type="cat">
-        <div><div class="card-type-badge badge-cat">猫カフェ</div><div class="card-name">猫カフェ MOCHA 名古屋栄店</div><div class="card-area">📍 名古屋市中区 栄 — 矢場町駅から1分</div></div>
-        <div class="solo-score-block"><div class="solo-score-label"><span>ひとり入店しやすさ</span><span class="solo-score-num">8.5</span></div><div class="score-bar-wrap"><div class="score-bar" style="width:85%"></div></div><div class="score-axes"><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">Wi-Fi あり</span></div><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">電源あり</span></div><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">1人席あり</span></div><div class="axis-row"><div class="axis-dot"></div><span>長時間OK</span></div></div></div>
-        <div class="bubble">「入ったら自然にスタッフが席を案内してくれて、全然浮きませんでした。ひとりのお客さんも何人かいたので安心」<div class="bubble-meta"><div class="bubble-avatar">K</div><span>女性・30代 / 2024年12月に訪問</span></div></div>
-        <div class="card-price"><span>⏱ 30分 700円〜</span><span>☕ ドリンク380円（必須）</span></div>
-        <div class="card-footer"><a class="btn-jalan" href="#" onclick="trackJalan('mocha-sakae')">じゃらんで予約</a><button class="btn-detail" onclick="showDetail('mocha-sakae')">詳細</button></div>
-      </article>
-      <article class="cafe-card" data-pref="aichi" data-type="cat">
-        <div><div class="card-type-badge badge-cat">保護猫カフェ</div><div class="card-name">保護猫カフェ ヘミングウェイ</div><div class="card-area">📍 名古屋市千種区 今池 — 今池駅から3分</div></div>
-        <div class="solo-score-block"><div class="solo-score-label"><span>ひとり入店しやすさ</span><span class="solo-score-num">9.2</span></div><div class="score-bar-wrap"><div class="score-bar" style="width:92%"></div></div><div class="score-axes"><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">仕事帰りOK</span></div><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">22時まで営業</span></div><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">読書OK</span></div><div class="axis-row"><div class="axis-dot"></div><span>駐車場なし</span></div></div></div>
-        <div class="bubble">「ジャズが流れていて大人の雰囲気。ひとりで本を読みながら猫と過ごせて最高でした」<div class="bubble-meta"><div class="bubble-avatar">M</div><span>男性・40代 / 2025年1月に訪問</span></div></div>
-        <div class="card-price"><span>⏱ 入場料+ドリンク込み</span><span>🕙 〜22:00まで</span></div>
-        <div class="card-footer"><a class="btn-jalan" href="#" onclick="trackJalan('hemingway')">じゃらんで予約</a><button class="btn-detail" onclick="showDetail('hemingway')">詳細</button></div>
-      </article>
-      <article class="cafe-card" data-pref="aichi" data-type="dog">
-        <div><div class="card-type-badge badge-dog">犬猫カフェ</div><div class="card-name">いぬねこcafe Rio 常滑店</div><div class="card-area">📍 愛知県常滑市 — イオンモール常滑内</div></div>
-        <div class="solo-score-block"><div class="solo-score-label"><span>ひとり入店しやすさ</span><span class="solo-score-num">8.0</span></div><div class="score-bar-wrap"><div class="score-bar" style="width:80%"></div></div><div class="score-axes"><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">予約不要</span></div><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">モール内で安心</span></div><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">駐車場広大</span></div><div class="axis-row"><div class="axis-dot"></div><span>子犬・子猫と触れあえる</span></div></div></div>
-        <div class="bubble">「ひとりで入ったのは自分だけじゃなかった。スタッフが丁寧に案内してくれて、犬も猫も両方触れてお得感ある」<div class="bubble-meta"><div class="bubble-avatar">T</div><span>女性・20代 / 2025年2月に訪問</span></div></div>
-        <div class="card-price"><span>⏱ 30分〜 時間制</span><span>🚗 駐車場あり（無料）</span></div>
-        <div class="card-footer"><a class="btn-jalan" href="#" onclick="trackJalan('rio-tokoname')">じゃらんで予約</a><button class="btn-detail" onclick="showDetail('rio-tokoname')">詳細</button></div>
-      </article>
-      <article class="cafe-card" data-pref="shizuoka" data-type="cat">
-        <div><div class="card-type-badge badge-cat">保護猫カフェ</div><div class="card-name">保護猫カフェ 猫宿町</div><div class="card-area">📍 静岡市葵区 七間町 — 静岡駅から徒歩10分</div></div>
-        <div class="solo-score-block"><div class="solo-score-label"><span>ひとり入店しやすさ</span><span class="solo-score-num">9.0</span></div><div class="score-bar-wrap"><div class="score-bar" style="width:90%"></div></div><div class="score-axes"><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">和室・縁側</span></div><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">ゆったり静か</span></div><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">読書OK</span></div><div class="axis-row"><div class="axis-dot"></div><span>予約推奨</span></div></div></div>
-        <div class="bubble">「純和風の縁側でひとり猫と過ごした時間が最高。他のお客さんもひとりの方が多くて静かで落ち着く」<div class="bubble-meta"><div class="bubble-avatar">S</div><span>女性・50代 / 2025年3月に訪問</span></div></div>
-        <div class="card-price"><span>⏱ 30分〜 時間制</span><span>📞 事前予約推奨</span></div>
-        <div class="card-footer"><a class="btn-jalan" href="#" onclick="trackJalan('nekoyado')">じゃらんで予約確認</a><button class="btn-detail" onclick="showDetail('nekoyado')">詳細</button></div>
-      </article>
-      <article class="cafe-card" data-pref="shizuoka" data-type="cat">
-        <div><div class="card-type-badge badge-cat">猫カフェ</div><div class="card-name">ねこカフェ にゃおん</div><div class="card-area">📍 静岡県伊東市 伊豆高原 — 伊豆高原駅から10分</div></div>
-        <div class="solo-score-block"><div class="solo-score-label"><span>ひとり入店しやすさ</span><span class="solo-score-num">8.8</span></div><div class="score-bar-wrap"><div class="score-bar" style="width:88%"></div></div><div class="score-axes"><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">30匹の猫</span></div><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">観光途中に◎</span></div><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">人懐っこい猫が多い</span></div><div class="axis-row"><div class="axis-dot"></div><span>木曜定休</span></div></div></div>
-        <div class="bubble">「伊豆観光のついでにひとりで立ち寄ったら、猫がすぐ膝に乗ってきて癒された。一人旅にすごくおすすめ」<div class="bubble-meta"><div class="bubble-avatar">A</div><span>女性・30代 / 2025年1月に訪問</span></div></div>
-        <div class="card-price"><span>⏱ 1時間 1,200円〜</span><span>☕ ドリンク付き</span></div>
-        <div class="card-footer"><a class="btn-jalan" href="#" onclick="trackJalan('nyaon')">じゃらんで予約</a><button class="btn-detail" onclick="showDetail('nyaon')">詳細</button></div>
-      </article>
-      <article class="cafe-card" data-pref="shizuoka" data-type="dog">
-        <div><div class="card-type-badge badge-dog">犬カフェ</div><div class="card-name">アニマルカフェ MILK</div><div class="card-area">📍 静岡県袋井市 — 袋井駅から車10分</div></div>
-        <div class="solo-score-block"><div class="solo-score-label"><span>ひとり入店しやすさ</span><span class="solo-score-num">7.5</span></div><div class="score-bar-wrap"><div class="score-bar" style="width:75%"></div></div><div class="score-axes"><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">犬・猫・爬虫類</span></div><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">コース選択可</span></div><div class="axis-row"><div class="axis-dot"></div><span class="axis-ok">駐車場あり</span></div><div class="axis-row"><div class="axis-dot"></div><span>車必須エリア</span></div></div></div>
-        <div class="bubble">「犬・猫・爬虫類を全部体験できるのはここだけ。ひとりでも全然OK、スタッフが丁寧に説明してくれた」<div class="bubble-meta"><div class="bubble-avatar">R</div><span>男性・20代 / 2025年2月に訪問</span></div></div>
-        <div class="card-price"><span>⏱ 30分〜 時間制</span><span>🦎 爬虫類エリアも選択可</span></div>
-        <div class="card-footer"><a class="btn-jalan" href="#" onclick="trackJalan('milk')">じゃらんで予約</a><button class="btn-detail" onclick="showDetail('milk')">詳細</button></div>
-      </article>
-    </div>
-  </div>
+
+<section class="band">
+  <h2>はじめてで戸惑いやすい4つ</h2>
+  <ul class="rules short"><li><strong>入ったらまず手を消毒する</strong><span>入口にアルコールが置いてあります。動物にさわる前に必ず使ってください。任意ではなく、スタッフが最初に確認する項目です。</span></li><li><strong>抱き上げない</strong><span>いちばん多い違反です。日本のほとんどの猫カフェで、猫を持ち上げたり抱いて歩いたりすることは禁止されています。猫のほうから来るのを待って、いる場所でなでてください。</span></li><li><strong>寝ている子を起こさない</strong><span>猫は一日の大半を寝て過ごします。起こそうとするとスタッフに止められます。部屋が静かで何も起きていないように見えても、それが普通の状態です。</span></li><li><strong>フラッシュは切る</strong><span>撮影自体は多くの店でできますが、フラッシュはほぼ全店で禁止です。掲示を確認し、わからなければ撮る前に聞いてください。</span></li></ul>
+  <p><a href="/etiquette/">8項目すべてを読む &rarr;</a></p>
 </section>
-<section class="section" id="how" style="background:var(--cream2)">
-  <div class="section-inner">
-    <div class="section-title">このサイトの使い方</div>
-    <div class="how-grid">
-      <div class="how-item"><div class="how-num">01</div><div class="how-title">エリア・種類で絞る</div><div class="how-body">愛知・静岡、猫カフェ・犬カフェでタブを切り替えてお近くの店舗を探せます。</div></div>
-      <div class="how-item"><div class="how-num">02</div><div class="how-title">ひとりスコアを確認</div><div class="how-body">「ひとり入店しやすさ」スコアと体験談を読んで、不安を解消してから行きましょう。</div></div>
-      <div class="how-item"><div class="how-num">03</div><div class="how-title">じゃらんで予約</div><div class="how-body">各カードの「じゃらんで予約」ボタンから公式予約ページへ。当日の空き確認もできます。</div></div>
-      <div class="how-item"><div class="how-num">04</div><div class="how-title">体験談を送ってください</div><div class="how-body">行ってきたら感想を送ってください。次のひとり訪問者の背中を押せます。</div></div>
-    </div>
-  </div>
+
+<section id="cities">
+  <h2>エリアから探す</h2>
+  <div class="cities"><a class="city" href="/tokyo/"><h3>東京</h3><p>29 件</p></a><a class="city" href="/yokohama/"><h3>横浜</h3><p>16 件</p></a><a class="city" href="/nagoya/"><h3>名古屋</h3><p>20 件</p></a><a class="city" href="/kyoto/"><h3>京都</h3><p>15 件</p></a><a class="city" href="/osaka/"><h3>大阪</h3><p>22 件</p></a><a class="city" href="/kobe/"><h3>神戸</h3><p>18 件</p></a><a class="city" href="/sapporo/"><h3>札幌</h3><p>15 件</p></a><a class="city" href="/sendai/"><h3>仙台</h3><p>6 件</p></a><a class="city" href="/niigata/"><h3>新潟</h3><p>12 件</p></a><a class="city" href="/kanazawa/"><h3>金沢</h3><p>6 件</p></a><a class="city" href="/hiroshima/"><h3>広島</h3><p>18 件</p></a><a class="city" href="/fukuoka/"><h3>福岡</h3><p>23 件</p></a><a class="city" href="/kumamoto/"><h3>熊本</h3><p>14 件</p></a><a class="city" href="/okinawa/"><h3>那覇</h3><p>11 件</p></a></div>
 </section>
-<section class="section" id="faq">
-  <div class="section-inner" style="max-width:680px">
-    <div class="section-title">よくある質問</div>
-    <div class="faq-list">
-      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">猫カフェにひとりで行くのは恥ずかしいですか？</button><div class="faq-a">全く恥ずかしくありません。おひとりさまのお客さんは必ず一定数います。特に平日の昼間や夕方は一人客が多い傾向です。スタッフは慣れているので安心して入店できます。</div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">初めての猫カフェ、どのくらいの時間・予算を見ればいいですか？</button><div class="faq-a">最低30分〜1時間、予算は1,500〜2,500円程度が目安です。入場料＋ドリンク代が基本のセットになっている店舗が多く、延長は10分単位が多いです。</div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">予約なしでも入れますか？</button><div class="faq-a">店舗によります。MOCHAやいぬねこcafe Rioなど大型チェーンは予約不要で入れることが多いです。保護猫カフェは事前予約推奨のことが多いので各店舗の詳細ページで確認してください。</div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">じゃらんで予約するメリットは何ですか？</button><div class="faq-a">じゃらんnet経由で予約すると、Pontaポイントが貯まります。また、空き状況をリアルタイムで確認できるため、人気店や土日でも事前に確保しやすいです。</div></div>
-    </div>
-  </div>
+
+<section>
+  <h2>保護猫カフェと商業型のちがい</h2>
+  <p>ひとくちに猫カフェといっても、性格の異なる2種類があります。ひとつは<strong>保護猫カフェ</strong>。里親募集中の猫と過ごす場で、個人経営の小さな店が中心です。</p><p>もうひとつが商業型で、MOCHAやMOFFなどの全国チェーンがこれにあたります。猫はその店で暮らしており、譲渡は前提ではありません。</p><p>どちらが良いという話ではありません。猫と静かに過ごしたいなら保護猫カフェ、駅近で気軽に立ち寄りたいならチェーンが向いています。</p>
 </section>
-<section class="section">
-  <div class="section-inner" style="max-width:680px">
-    <div class="cta-banner">
-      <h2>あなたの「行ってきた」が次の誰かの勇気に</h2>
-      <p>ひとりで猫カフェ・犬カフェに行ってきたら、ぜひ体験談を送ってください。<br>スコア評価にも反映して、リアルな情報をみんなで作っていきます。</p>
-      <a class="cta-btn" href="#">体験談を送る</a>
-    </div>
-  </div>
+
+<section class="band">
+  <h2>チェーンと個人店、どちらに行くか</h2>
+  <p>はじめての1軒なら、チェーンのほうが気楽です。主要駅のそばにあり、遅くまで開いていて、カードが使え、料金体系が入口に明示されています。勝手がわからないまま入っても困りません。</p><p>個人店は部屋が小さく、静かで、店ごとの個性があります。ただし現金のみの店が多く、営業時間も短めです。一度ルールを覚えてから行くほうが、落ち着いて過ごせます。</p>
 </section>
-<footer>
-  <p>もふもふ東海 — 愛知・静岡のひとり動物カフェ専門メディア</p>
-  <p style="margin-top:4px"><a href="#">運営者情報</a> · <a href="#">プライバシーポリシー</a> · <a href="#">お問い合わせ</a></p>
-  <p style="margin-top:8px;font-size:11px">当サイトはじゃらんnet・アソビューのアフィリエイトプログラムに参加しています。掲載情報は訪問時点のものです。</p>
+
+<section>
+  <h2>犬カフェは犬種が限られていることが多い</h2>
+  <p>犬カフェは、サモエドだけ、柴犬だけ、コーギーだけ、あるいは大型犬のみ、というように犬種や体格を絞っている店が少なくありません。いろいろな犬に会えると思って行くと、同じ犬種ばかりということがあります。</p><p>多くの店は犬種を店名に入れていません。遠出する前に店の公式サイトを確認してください。掲載店のうち、店名で犬種を明示している店にはタグを付けています。タグが無いのは「いろいろな犬がいる」ではなく「確認できていない」という意味です。</p>
+  <h3>柴犬は会える、秋田犬はほぼ会えない</h3>
+  <p>豆柴カフェは東京・京都・大阪・名古屋・福岡などにあり、比較的行きやすい場所にあります。一方で秋田犬は事情が違います。掲載している14エリアのいずれにも秋田犬カフェは見つかりませんでした。秋田犬に会える施設は秋田県大館市に集まっており、東京から北へ約4時間。日帰りの立ち寄りではなく、それ自体を目的にした旅になります。</p>
+</section>
+
+<section>
+  <h2>猫カフェは犬カフェの倍以上ある</h2>
+  <p>掲載しているエリア全体で、猫カフェは犬カフェのおよそ2倍あります。京都のように、猫カフェ13件に対して犬カフェが2件という差の大きい地域もあります。犬カフェを目当てにお出かけの予定を組む場合は、先にエリアページで件数を確認してください。</p>
+</section>
+
+<section class="band">
+  <h2>料金の目安</h2>
+  <p>入場料ではなく時間制の店がほとんどで、30分または1時間単位が一般的です。加えてワンドリンク必須の店も多く、飲み物を含めると1時間あたり1,000〜2,000円が目安になります。安ければ良いというものでもありません。少し高くて静かな店のほうが、猫が人から離れられる場所を確保できていることが多いからです。</p>
+</section>
+</main>
+<footer class="site">
+  <p><strong>ひとりもふ</strong> — ひとりで行ける猫カフェ・犬カフェを探す</p>
+  <p class="fine">店名・住所・営業時間・評価はGoogle Places APIから取得しています（取得日：2026-08-10）。評価はGoogleのもので、当サイトが独自に点数をつけたものではありません。営業時間や料金は予告なく変わるため、お出かけ前に店舗にご確認ください。</p>
+  <p class="fine">English: <a href="https://hitorimofu.com/">hitorimofu.com</a></p>
 </footer>
-<script>
-function filterPref(key,btn){document.querySelectorAll('.pref-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');let v=0;document.querySelectorAll('.cafe-card').forEach(c=>{let s=true;if(key==='aichi')s=c.dataset.pref==='aichi';else if(key==='shizuoka')s=c.dataset.pref==='shizuoka';else if(key==='cat')s=c.dataset.type==='cat';else if(key==='dog')s=c.dataset.type==='dog';c.classList.toggle('hidden',!s);if(s)v++;});document.getElementById('cnt-shops').textContent=v;}
-function toggleFaq(btn){const a=btn.nextElementSibling;const o=a.classList.contains('open');document.querySelectorAll('.faq-a.open').forEach(x=>{x.classList.remove('open');x.previousElementSibling.classList.remove('open');});if(!o){a.classList.add('open');btn.classList.add('open');}}
-function trackJalan(id){console.log('jalan:',id);}
-function showDetail(id){alert('店舗詳細ページは準備中です：'+id);}
-const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.score-bar').forEach(b=>{const w=b.style.width;b.style.width='0';requestAnimationFrame(()=>{b.style.width=w;});});obs.unobserve(e.target);}}),{threshold:0.2});
-document.querySelectorAll('.cafe-card').forEach(c=>obs.observe(c));
-</script>
-</body>
-                                                                     </html><!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>もふもふ東海 — ひとりで行ける猫カフェ・犬カフェ 愛知・静岡</title>
-<style>
-  :root {
-    --cream: #F7F5F0;
-    --cream2: #EFEDE6;
-    --ink: #1E1E1A;
-    --green: #5C7A5C;
-    --green-light: #EAF0EA;
-    --green-mid: #B8CDB8;
-    --border: rgba(30,30,26,0.1);
-  }
-  body { font-family: sans-serif; background: var(--cream); color: var(--ink); }
-</style>
-</head>
-<body>
-<h1>もふもふ東海 MVP</h1>
-<p>フル版は別ファイルで投入予定</p>
 </body>
 </html>
